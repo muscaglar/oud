@@ -1,4 +1,4 @@
-function [] = plot_gSpectra(save)
+function [] = oud_gSpectra(save)
 
 filepath = uigetdir;
 folders = dir(filepath);
@@ -52,11 +52,11 @@ else
         Files = dir(Files);
         
     if(isempty(Files))
-        savename = process_Gamry(new_filepath);
+        savename = oud_gamry(new_filepath);
         load(savename);
         flag = 1;
     else
-         process_Chrono_Gamry(new_filepath);
+         oud_chrono(new_filepath);
          load(fullpath_chrono);
          flag = 0;
     end

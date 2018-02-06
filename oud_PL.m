@@ -1,4 +1,4 @@
-function [PL_res] = plot_PL(variable) 
+function [PL_res] = oud_PL(variable) 
 
 upto = size(variable,2);
 
