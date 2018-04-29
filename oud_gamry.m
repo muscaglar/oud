@@ -1,4 +1,4 @@
-function [savename] = process_Gamry(Files)
+function [savename] = oud_gamry(Files)
 
 fPath = Files;
     if(ispc)

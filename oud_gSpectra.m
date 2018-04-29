@@ -31,60 +31,60 @@ end
 for k = 1 : length(subFolders)
     flag = 0;
     new_filepath = [filepath, '/', subFolders(k).name];
-fullpath_spectra = fullfile(new_filepath,spectra_mat);
-fullpath_chrono = fullfile(new_filepath,chrono_mat);
-
-if exist(fullpath_spectra, 'file')
-    load(fullpath_spectra);
-else
-    process_TDMS_spectra(new_filepath);
-    load(fullpath_spectra);
-end
-
-if exist(fullpath_chrono, 'file')
-     load(fullpath_chrono);
-else   
-    if(ispc)
-        Files = strcat(new_filepath,'\*CHRONO*.DTA');
+    fullpath_spectra = fullfile(new_filepath,spectra_mat);
+    fullpath_chrono = fullfile(new_filepath,chrono_mat);
+    
+    if exist(fullpath_spectra, 'file')
+        load(fullpath_spectra);
     else
-        Files = strcat(new_filepath,'/*CHRONO*.DTA');
+        process_TDMS_spectra(new_filepath);
+        load(fullpath_spectra);
     end
+    
+    if exist(fullpath_chrono, 'file')
+        load(fullpath_chrono);
+    else
+        if(ispc)
+            Files = strcat(new_filepath,'\*CHRONO*.DTA');
+        else
+            Files = strcat(new_filepath,'/*CHRONO*.DTA');
+        end
         Files = dir(Files);
         
-    if(isempty(Files))
-        savename = oud_gamry(new_filepath);
-        load(savename);
-        flag = 1;
-    else
-         oud_chrono(new_filepath);
-         load(fullpath_chrono);
-         flag = 0;
+        if(isempty(Files))
+            savename = oud_gamry(new_filepath);
+            load(savename);
+            flag = 1;
+        else
+            oud_chrono(new_filepath);
+            load(fullpath_chrono);
+            flag = 0;
+        end
+        
     end
-
-end
-
-sol = exist('spectra','var');
-
-if(sol)
-    [PL_res] = plot_PL(spectra);
-else
-    [PL_res] = plot_PL(PL_Spectra);
-end
-
-close all;
-figure;
-
-if(flag)
-fig = plotyy(PL_res(:,3),PL_res(:,2),time,v,'plot');
-else
-fig = plotyy(PL_res(:,3),PL_res(:,2),time,vf,'plot');
-end
-
-if(save)
-save_path = [new_filepath,'/result.fig'];
-savefig(save_path);
-end
-
+    
+    sol = exist('spectra','var');
+    
+    if(sol)
+        [PL_res] = oud_PL(spectra);
+    else
+        [PL_res] = oud_PL(PL_Spectra);
+    end
+    
+    close all;
+    figure;
+    
+    if(flag)
+        fig = plotyy(PL_res(:,3),PL_res(:,2),time,v,'plot');
+    else
+        fig = plotyy(PL_res(:,3),PL_res(:,2),time,vf,'plot');
+    end
+    
+    if(save)
+        save_path = [new_filepath,'/result.fig'];
+        savefig(save_path);
+    end
+    
 end
 
 end

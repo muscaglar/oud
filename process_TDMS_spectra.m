@@ -14,9 +14,19 @@ fileNames = {};
 % for fileName=fileNames
 for k=1:length(Paths)
     fileName=Paths(k);
+    total = strsplit(fileName.name,'.');
+    extension = total{2};
+    name = strsplit(total{1},'\');
+    element = size(name,2);
+    name = name{element};
     
-    if(any(size(dir([fileName.name '/*.tdms' ]),1)))
-        [ ChannelData, metaStruct, PathName, FileName, NoFiles ] = ConcatentateRawData(fileName.name,[4 5]);%3 4
+    
+    
+    if(strcmpi(extension,'tdms'))%any(size(dir([fileName.name '\*.tdms' ]),1)))
+        extended_name = [name,'.',extension];
+        total = strsplit(fileName.name,extended_name);
+        FolderPath = total{1};
+        [ ChannelData, metaStruct, PathName, FileName ] = LoadTDMSData([4 5],extended_name, FolderPath);%ConcatentateRawData(fileName.name,[2 3]);%3 4
         i = 1;
         ind = 2;
         PL_Spectra(:,1) = ChannelData(1:1024,1);
@@ -26,8 +36,8 @@ for k=1:length(Paths)
             ind = ind +1;
         end
         
-        filename = strcat('PL_Spectra.mat');
-        savePath = strcat(fileName.name,'\',filename);
+        filename = strcat(name,' PL_Spectra.mat');
+        savePath = strcat(FolderPath,filename);
         
         save(savePath, 'PL_Spectra');
     else

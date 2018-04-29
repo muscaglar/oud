@@ -3,12 +3,12 @@ function [] = oud_process()
 filepath = uigetdir;
 
 if(ispc)
-        files1 = rdir([filepath,'\*\*.dta']);
-        files2 = rdir([filepath,'\*\*.DTA']);
+        files1 = rdir([filepath,'\*.dta']);
+        files2 = rdir([filepath,'\*.DTA']);
         files = [files1, files2];
 else
-        files1 = rdir([filepath,'/*/*.dta']);
-        files2 = rdir([filepath,'/*/*.DTA']);
+        files1 = rdir([filepath,'/*.dta']);
+        files2 = rdir([filepath,'/*.DTA']);
         files = [files1, files2];
 end
 
