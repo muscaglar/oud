@@ -6,7 +6,7 @@ for i=2:upto
     [value,index] = max(variable(:,i));
     PL_res(i-1,1) = variable(index,1);
     PL_res(i-1,2) = value;
-    PL_res(i-1,3) = i*0.045;%i/45;%(i*0.005)+1;
+    PL_res(i-1,3) = (i*0.045);%(i*0.005)+1;
 end
 
 %limit = upto*0.05;

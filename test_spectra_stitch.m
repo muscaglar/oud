@@ -1,14 +1,14 @@
 i=1;
-low = 2;
-high = 3291;
-
-name = 'negative_control';
+low = 1;
+high = 4216;
+spectra = [];
+name = 'pl';
 
 s = (high-low)+2;
 
 
 for ii = low:high
-    fn = strcat('/Users/Mus/Downloads/101117/negative_control/101117_',num2str(ii,'%4i'),'_',name,'_Aquire_1.txt');
+    fn = strcat('/Volumes/MusDrive/Google Drive/PhD/projects/oud/oud_fleur/190319/190319_',num2str(ii,'%4i'),'__Aquire_1.txt');
 
  if exist(fn, 'file') == 2
     fid = fopen(fn);

@@ -4,7 +4,7 @@ function [fil_data] = oud_butterworth(fc, fs,type,data)
 %fc= 100;%fc = 1.5; % Cut off frequency
 %fs= 10000;%fs = 23.6407; % Sampling rate
 
-[b,a] = butter(6,fc/(fs/2),type); % Butterworth filter of order 6
+[b,a] = butter(3,fc/(fs/2),type); % Butterworth filter of order 6
 
 fil_data = filter(b,a,data); % Will be the filtered signal
 
